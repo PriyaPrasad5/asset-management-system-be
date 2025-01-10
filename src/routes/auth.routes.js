@@ -1,10 +1,10 @@
 import express from "express";
 import { isAdmin, isManager, isEmployee } from "../middleware/authMiddleware.js";
-import { createAsset, getAssets } from "../controllers/admin.controller.js";
+import { register, login } from "../controllers/auth.controller.js";
 
 const router = express.Router();
 
-router.post("/assets", isAdmin, createAsset);
-router.get("/assets", getAssets);
+router.post("/register", register);
+router.post("/login",isEmployee, login);
 
 export default router;
