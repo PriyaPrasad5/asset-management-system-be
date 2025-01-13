@@ -1,6 +1,5 @@
 import bcrypt from "bcrypt";
 import db from "../models/relationshipManager.js";
-// import User from "../models/user.model.js";
 import { generateToken } from "../utils/auth.js";
 
 const { User } = db;
@@ -14,6 +13,8 @@ export const registerUser = async (userData) => {
     email,
     password: hashedPassword,
     role: "EMPLOYEE",
+    employeeId,
+    isActive: 1,
   });
   return user;
 };

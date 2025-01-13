@@ -1,9 +1,23 @@
-import { registerUser, loginUser } from "../services/auth.service.js";
+import { loginUser, registerUser } from "../services/auth.service.js";
+import { validateSchema } from "../utils/common.js";
 import { errorHandler, successHandler } from "../utils/responseHandler.js";
+import {
+  LoginValidationObj,
+  UserRegisterValidationObj,
+} from "../validations/auth.validation.js";
 
 export const register = async (req, res) => {
   try {
-    const user = await registerUser(req.body);
+    const { error, message } = await validateSchema(
+      UserRegisterValidationObj,
+      req.body
+    );
+    if (error) {
+      return errorHandler(new Error(message), 400, res);
+    }
+
+    const { employeeId, name, email, password } = req.body;
+    const user = await registerUser(employeeId, name, email, password);
     successHandler(user, res);
   } catch (error) {
     errorHandler(error, 400, res);
@@ -12,7 +26,16 @@ export const register = async (req, res) => {
 
 export const login = async (req, res) => {
   try {
-    const token = await loginUser(req.body.email, req.body.password);
+    const { error, message } = await validateSchema(
+      LoginValidationObj,
+      req.body
+    );
+    if (error) {
+      return errorHandler(new Error(message), 400, res);
+    }
+
+    const { email, password } = req.body;
+    const token = await loginUser(email, password);
     successHandler({ token }, res);
   } catch (error) {
     errorHandler(error, 400, res);

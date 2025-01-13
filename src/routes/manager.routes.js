@@ -1,9 +1,24 @@
 import express from "express";
-import { isAdmin, isManager, isEmployee } from "../middleware/authMiddleware.js";
-import { createAsset, getAssets } from "../controllers/auth.controller.js";
+import { getAssets, updateAsset } from "../controllers/admin.controller.js";
+import {
+  approveRequest,
+  getAssetsWithinWarrantyRange,
+  getRequestById,
+  getRequests,
+  rejectRequest,
+} from "../controllers/manager.controller.js";
+import { isManager } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-router.post("/manager/allocate", isManager, allocate);
+router.get("/assets", isManager, getAssets);
+router.get("/requests", isManager, getRequests);
+// router.get("/manager/request", isManager, filterAsset);
+// router.get("/manager/request", isManager, filterRequest);
+router.patch("/manager/request/:id/approve", isManager, approveRequest);
+router.patch("/manager/request/:id/reject", isManager, rejectRequest);
+router.get("/manager/request/:id", isManager, getRequestById);
+router.patch("/assets/:id", isManager, updateAsset);
+router.get("/assets", isManager, getAssetsWithinWarrantyRange);
 
 export default router;

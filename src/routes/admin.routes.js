@@ -1,10 +1,24 @@
 import express from "express";
-import { isAdmin, isManager, isEmployee } from "../middleware/authMiddleware.js";
-import { createAsset, getAssets } from "../controllers/admin.controller.js";
+import {
+  createAsset,
+  deleteAsset,
+  getAssetById,
+  getAssetUtilizationReport,
+  getAssets,
+  updateAsset,
+} from "../controllers/admin.controller.js";
+import { getAssetsWithinWarrantyRange } from "../controllers/manager.controller.js";
+import { isAdmin } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
 router.post("/assets", isAdmin, createAsset);
-router.get("/assets", getAssets);
+router.get("/assets", isAdmin, getAssets);
+router.patch("/assets/:id", isAdmin, updateAsset);
+router.get("/assets/:id", isAdmin, getAssetById);
+router.patch("/assets/delete/:id", isAdmin, deleteAsset);
+router.get("/assets/reports/asset-utilization", isAdmin, getAssetUtilizationReport);
+router.get("/assets/warranty", isAdmin, getAssetsWithinWarrantyRange);
+
 
 export default router;

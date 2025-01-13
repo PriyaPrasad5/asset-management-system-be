@@ -1,9 +1,15 @@
 import express from "express";
-import { isAdmin, isManager, isEmployee } from "../middleware/authMiddleware.js";
-import { createAsset, getAssets } from "../controllers/auth.controller.js";
+import {
+  createRequest,
+  deleteRequest,
+  getRequest,
+} from "../controllers/employee.controller.js";
+import { isEmployee } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-router.post("/employee/request", isEmployee,requestass)
+router.post("/request", isEmployee, createRequest);
+router.get("/request", isEmployee, getRequest);
+router.patch("/request/:id", isEmployee, deleteRequest);
 
 export default router;

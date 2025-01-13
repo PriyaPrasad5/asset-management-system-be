@@ -1,16 +1,20 @@
 import jwt from "jsonwebtoken";
 
-const secretKey = process.env.JWT_SECRET_KEY || "secretKey";
+const secretKey = process.env.JWT_SECRET_KEY;
+// const secretKey = process.env.JWT_SECRET_KEY || "secretKey";
 
 // Create a JWT token
 export const generateToken = (user) => {
-  return jwt.sign({ id: user.id, role: user.role }, secretKey, { expiresIn: '1h' });
+  console.log(user);
+  return jwt.sign({ id: user.id, role: user.role }, secretKey, {
+    expiresIn: process.env.EXPIRE_IN,
+  });
 };
 
 // Middleware to verify JWT token
 export const verifyToken = (req, res, next) => {
   const token = req.headers["authorization"]?.split(" ")[1];
-  
+
   if (!token) {
     return res.status(403).json({ error: "Token is required" });
   }

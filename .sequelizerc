@@ -1,0 +1,16 @@
+const path = require('path');
+
+// module.exports = {
+//   'config': path.resolve(__dirname,'src/config','config.js'),
+//   'models-path': path.resolve(__dirname,'src/models'),
+//   'seeders-path': path.resolve(__dirname,'src/seeders'),
+// };
+// Log the paths to verify their values
+console.log('Config Path:', path.resolve(__dirname, 'src', 'config', 'config.mjs'));
+console.log('Models Path:', path.resolve(__dirname, 'src', 'models'));
+console.log('Seeders Path:', path.resolve(__dirname, 'src', 'seeders'));
+module.exports = {
+  "config": path.resolve(__dirname, "src", "config", "config.mjs"),
+  "models-path": path.resolve(__dirname, "src", "models"),
+  "seeders-path": path.resolve(__dirname, "src", "seeders"),
+};
