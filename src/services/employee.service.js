@@ -9,7 +9,7 @@ export const saveRequest = async (userId, assetData) => {
 };
 
 export const fetchRequest = async (userId) => {
-  const request = await Request.findAll(userId, { where: { isActive: 1 } });
+  const request = await Request.findAll( { where: { isActive: 1,userId:userId } });
   return request;
 };
 
@@ -18,10 +18,10 @@ export const removeRequest = async (id) => {
   if (!request) {
     throw new Error("Request Not Found");
   }
-  if (request.status !== "APPROVED") {
+  if (request.status === "APPROVED") {
     throw new Error("Aproved Request cant be deleted");
   }
-  if (request.status !== "REJECTED") {
+  if (request.status === "REJECTED") {
     throw new Error("Rejected Request cant be deleted");
   }
   await request.update({ isActive: 0 });

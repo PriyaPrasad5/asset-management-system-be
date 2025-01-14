@@ -6,7 +6,7 @@ const { User } = db;
 
 // Register a new user
 export const registerUser = async (userData) => {
-  const { name, email, password } = userData;
+  const { name, email, password, employeeId } = userData;
   const hashedPassword = await bcrypt.hash(password, 10);
   const user = await User.create({
     name,

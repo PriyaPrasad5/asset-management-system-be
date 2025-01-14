@@ -15,10 +15,10 @@ router.get("/assets", isManager, getAssets);
 router.get("/requests", isManager, getRequests);
 // router.get("/manager/request", isManager, filterAsset);
 // router.get("/manager/request", isManager, filterRequest);
-router.patch("/manager/request/:id/approve", isManager, approveRequest);
-router.patch("/manager/request/:id/reject", isManager, rejectRequest);
-router.get("/manager/request/:id", isManager, getRequestById);
+router.patch("/request/:id/approve", isManager, approveRequest);
+router.patch("/request/:id/reject", isManager, rejectRequest);
+router.get("/request/:id", isManager, getRequestById);
 router.patch("/assets/:id", isManager, updateAsset);
-router.get("/assets", isManager, getAssetsWithinWarrantyRange);
+router.get("/assets/warranty/date", isManager, getAssetsWithinWarrantyRange);
 
 export default router;

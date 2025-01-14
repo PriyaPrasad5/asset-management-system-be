@@ -5,6 +5,7 @@ import {
   removeRequest,
   saveRequest,
 } from "../services/employee.service.js";
+import { validateSchema } from "../utils/common.js";
 import { errorHandler, successHandler } from "../utils/responseHandler.js";
 import { CreateRequestValidationObj } from "../validations/request.validation.js";
 
@@ -19,7 +20,7 @@ export const createRequest = async (req, res) => {
       return errorHandler(new Error(message), 400, res);
     }
     const { name, type } = req.body;
-    const request = await saveRequest(userId, name, type);
+    const request = await saveRequest(userId, { name, type });
     return successHandler(request, res);
   } catch (error) {
     return errorHandler(error, 400, res);

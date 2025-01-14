@@ -9,11 +9,11 @@ const defineRequestModel = (sequelize, DataTypes) => {
       },
       name: {
         type: DataTypes.STRING,
-        allowNull: false, //laptop,pc,phone
+        allowNull: false,
       },
       type: {
         type: DataTypes.ENUM("REQUEST_ASSET", "RETURN_ASSET"),
-        allowNull: false, //windows,ios
+        allowNull: false,
       },
       status: {
         type: DataTypes.ENUM("PENDING", "APPROVED", "REJECTED"),

@@ -10,6 +10,6 @@ const router = express.Router();
 
 router.post("/request", isEmployee, createRequest);
 router.get("/request", isEmployee, getRequest);
-router.patch("/request/:id", isEmployee, deleteRequest);
+router.delete("/request/:id", isEmployee, deleteRequest);
 
 export default router;

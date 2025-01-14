@@ -6,6 +6,7 @@ import {
   removeAsset,
   saveAsset,
 } from "../services/admin.service.js";
+import { validateSchema } from "../utils/common.js";
 import { errorHandler, successHandler } from "../utils/responseHandler.js";
 import {
   CreateAssetValidationObj,
@@ -23,11 +24,11 @@ export const createAsset = async (req, res) => {
     }
     const { name, type, assetId, purchaseDate, warrantyEndDate } = req.body;
     const asset = await saveAsset(
-      name,
+      {name,
       type,
       assetId,
       purchaseDate,
-      warrantyEndDate
+      warrantyEndDate}
     );
     return successHandler(asset, res);
   } catch (error) {

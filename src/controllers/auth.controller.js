@@ -16,8 +16,8 @@ export const register = async (req, res) => {
       return errorHandler(new Error(message), 400, res);
     }
 
-    const { employeeId, name, email, password } = req.body;
-    const user = await registerUser(employeeId, name, email, password);
+    const { name, email, password ,employeeId } = req.body;
+    const user = await registerUser({ name, email, password, employeeId});
     successHandler(user, res);
   } catch (error) {
     errorHandler(error, 400, res);

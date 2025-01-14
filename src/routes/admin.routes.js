@@ -16,9 +16,9 @@ router.post("/assets", isAdmin, createAsset);
 router.get("/assets", isAdmin, getAssets);
 router.patch("/assets/:id", isAdmin, updateAsset);
 router.get("/assets/:id", isAdmin, getAssetById);
-router.patch("/assets/delete/:id", isAdmin, deleteAsset);
+router.delete("/assets/:id", isAdmin, deleteAsset);
 router.get("/assets/reports/asset-utilization", isAdmin, getAssetUtilizationReport);
-router.get("/assets/warranty", isAdmin, getAssetsWithinWarrantyRange);
+router.get("/assets/warranty/date", isAdmin, getAssetsWithinWarrantyRange);
 
 
 export default router;

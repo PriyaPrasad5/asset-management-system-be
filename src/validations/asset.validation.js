@@ -1,4 +1,4 @@
-import * as dayjs from "dayjs";
+import dayjs from "dayjs";
 import Joi from "joi";
 
 export const CreateAssetValidationObj = Joi.object({
@@ -12,7 +12,7 @@ export const CreateAssetValidationObj = Joi.object({
       }
       return true;
     })
-    .optional(),
+    .required(),
   warrantyEndDate: Joi.date()
     .custom((date, helper) => {
       if (!dayjs(date.original, undefined, true).isValid()) {
@@ -20,7 +20,7 @@ export const CreateAssetValidationObj = Joi.object({
       }
       return true;
     })
-    .optional(),
+    .required(),
   // status: Joi.string().valid("AVAILABLE", "ASSIGNED", "UNDER_MAINTENANCE").optional(),
 });
 

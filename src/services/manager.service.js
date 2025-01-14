@@ -1,7 +1,7 @@
 import db from "../models/relationshipManager.js";
 import { Op } from "sequelize";
 
-const { Request, Allocation, Asset } = db;
+const { Request, Allocation, Asset, User } = db;
 
 export const fetchRequests = async () => {
   const request = await Request.findAll({ where: { isActive: 1 } });
@@ -49,7 +49,7 @@ export const approveRaisedRequest = async (id, assetId, reason) => {
       });
     }
   }
-  await request.update({ status: "APPROVED", assetId, reason });
+  await request.update({ status: "APPROVED", assetId, reason, isActive: 0 });
   return request;
 };
 
@@ -59,7 +59,7 @@ export const rejectRaisedRequest = async (id, reason) => {
     throw new Error("Request Not Found");
   }
 
-  await request.update({ status: "REJECTED", reason });
+  await request.update({ status: "REJECTED", reason, isActive: 0 });
   return request;
 };
 
@@ -76,8 +76,8 @@ export const fetchAssetsWithinWarrantyRange = async (date) => {
       warrantyEndDate: {
         [Op.between]: [startDate, endDate],
       },
+      isActive: 1,
     },
   });
-
   return assets;
 };

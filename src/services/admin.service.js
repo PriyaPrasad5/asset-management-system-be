@@ -26,7 +26,7 @@ export const fetchAssetById = async (id) => {
   return asset;
 };
 
-export const modifyAsset = async (id, status, warrantyEndDate) => {
+export const modifyAsset = async (id, status, warrantyEndDate,nextServiceDate) => {
   const asset = await Asset.findByPk(id);
 
   if (!asset) {

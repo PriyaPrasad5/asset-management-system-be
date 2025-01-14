@@ -5,6 +5,7 @@ import {
   fetchRequests,
   rejectRaisedRequest,
 } from "../services/manager.service.js";
+import { validateSchema } from "../utils/common.js";
 import { errorHandler, successHandler } from "../utils/responseHandler.js";
 import {
   ApprovalValidationObj,
@@ -72,7 +73,7 @@ export const getAssetsWithinWarrantyRange = async (req, res) => {
     if (!date) {
       return errorHandler(new Error("Please Enter the Date"), 400, res);
     }
-
+    
     const assets = await fetchAssetsWithinWarrantyRange(date);
     return successHandler(assets, res);
   } catch (error) {
