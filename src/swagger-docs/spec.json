@@ -1,0 +1,515 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "AMS",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:4000"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "accessToken": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Auth"
+    },
+    {
+      "name": "Employee"
+    },
+    {
+      "name": "Admin"
+    },
+    {
+      "name": "Manager"
+    }
+  ],
+  "paths": {
+    "/api/auth/register": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Register user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "name": "Anjali",
+                  "email": "anjali@gmail.com",
+                  "password": "anjali123",
+                  "employeeId": 11341
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/login": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Login user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "email": "admin@example.com",
+                  "password": "admin123"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/api/employee/request": {
+      "post": {
+        "tags": [
+          "Employee"
+        ],
+        "summary": "Create Request",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "name": "Laptop",
+                  "type": "REQUEST_ASSET"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "accessToken": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Employee"
+        ],
+        "summary": "Get Request",
+        "security": [
+          {
+            "accessToken": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/api/employee/request/2": {
+      "delete": {
+        "tags": [
+          "Employee"
+        ],
+        "summary": "Delete Request",
+        "security": [
+          {
+            "accessToken": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/assets": {
+      "post": {
+        "tags": [
+          "Admin"
+        ],
+        "summary": "Create Asset",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "name": "Phone",
+                  "type": "Electronics",
+                  "assetId": "102",
+                  "purchaseDate": "2025-01-14",
+                  "warrantyEndDate": "2026-01-14"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "accessToken": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Admin"
+        ],
+        "summary": "Get Asset",
+        "security": [
+          {
+            "accessToken": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/assets/1": {
+      "patch": {
+        "tags": [
+          "Admin"
+        ],
+        "summary": "Update Asset",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "status": "UNDER_MAINTENANCE",
+                  "warrantyEndDate": "2025-02-14",
+                  "nextServiceDate": "2025-02-15"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "accessToken": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Admin"
+        ],
+        "summary": "Get Asset By Id",
+        "security": [
+          {
+            "accessToken": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/assets/2": {
+      "delete": {
+        "tags": [
+          "Admin"
+        ],
+        "summary": "Delete Asset",
+        "security": [
+          {
+            "accessToken": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/assets/reports/asset-utilization": {
+      "get": {
+        "tags": [
+          "Admin"
+        ],
+        "summary": "Get Asset Utilization Report",
+        "security": [
+          {
+            "accessToken": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/assets/warranty/date": {
+      "get": {
+        "tags": [
+          "Admin"
+        ],
+        "summary": "Get Assets Within Warranty Range",
+        "security": [
+          {
+            "accessToken": []
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "example": "2026-02-14"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/api/manager/assets": {
+      "get": {
+        "tags": [
+          "Manager"
+        ],
+        "summary": "Get Assets",
+        "security": [
+          {
+            "accessToken": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Manager"
+        ],
+        "summary": "Update Asset",
+        "requestBody": {
+          "content": {}
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/api/manager/requests": {
+      "get": {
+        "tags": [
+          "Manager"
+        ],
+        "summary": "Get Requests",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/api/manager/request/:id/approve": {
+      "patch": {
+        "tags": [
+          "Manager"
+        ],
+        "summary": "Approve Request",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "assetId": "101",
+                  "reason": "Approved"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "accessToken": []
+          },
+          {
+            "name": "",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/api/manager/request/:id/reject": {
+      "patch": {
+        "tags": [
+          "Manager"
+        ],
+        "summary": "Reject Request",
+        "requestBody": {
+          "content": {}
+        },
+        "security": [
+          {
+            "accessToken": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/api/manager/request": {
+      "get": {
+        "tags": [
+          "Manager"
+        ],
+        "summary": "Get Request By Id",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/api/manager/assets/warranty/date": {
+      "get": {
+        "tags": [
+          "Manager"
+        ],
+        "summary": "Get Assets Within Warranty Range",
+        "security": [
+          {
+            "accessToken": []
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "example": "2026-02-14"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    }
+  }
+}
