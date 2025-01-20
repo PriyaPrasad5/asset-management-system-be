@@ -17,7 +17,7 @@ module.exports = {
       {
         name: "Priya Prasad",
         email: "admin@example.com",
-        password: await bcrypt.hash("admin123", 10),
+        password: await bcrypt.hash("Admin123", 10),
         role: "ADMIN",
         employeeId: 121,
         isActive: 1,
@@ -27,7 +27,7 @@ module.exports = {
       {
         name: "Richa Prasad",
         email: "manager@example.com",
-        password: await bcrypt.hash("manager123", 10),
+        password: await bcrypt.hash("Manager123", 10),
         role: "MANAGER",
         employeeId: 131,
         isActive: 1,

@@ -1,4 +1,5 @@
 import bodyParser from "body-parser";
+import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
 import swaggerUi from "swagger-ui-express";
@@ -7,10 +8,11 @@ import authRoutes from "./src/routes/auth.routes.js";
 import employeeRoutes from "./src/routes/employee.routes.js";
 import managerRoutes from "./src/routes/manager.routes.js";
 import swaggerDocument from "./src/swagger-docs/spec.json" assert { type: "json" };
+
 dotenv.config();
 
 const app = express();
-
+app.use(cors({ origin: "http://localhost:5173" }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
