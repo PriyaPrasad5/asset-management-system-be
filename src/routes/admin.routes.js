@@ -5,6 +5,9 @@ import {
   getAssetById,
   getAssetUtilizationReport,
   getAssets,
+  getHistoryByAssetService,
+  getHistoryByUserService,
+  getUsers,
   updateAsset,
 } from "../controllers/admin.controller.js";
 import { getAssetsWithinWarrantyRange } from "../controllers/manager.controller.js";
@@ -19,6 +22,9 @@ router.get("/assets/:id", isAdmin, getAssetById);
 router.delete("/assets/:id", isAdmin, deleteAsset);
 router.get("/assets/reports/asset-utilization", isAdmin, getAssetUtilizationReport);
 router.get("/assets/warranty/date", isAdmin, getAssetsWithinWarrantyRange);
+router.get("/user/history/:id", isAdmin, getHistoryByUserService);
+router.get("/asset/history/:id", isAdmin, getHistoryByAssetService);
+router.get("/users", isAdmin, getUsers);
 
 
 export default router;

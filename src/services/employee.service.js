@@ -29,23 +29,3 @@ export const removeRequest = async (id) => {
   await request.update({ isActive: 0, isDeleted: 1 });
   return request;
 };
-
-export const getHistoryByUserService = async (userId) => {
-  const history = await Allocation.findAll({
-    where: { userId },
-    include: [{ model: Asset, attributes: ["id", "name", "type"] }],
-    order: [["createdOn", "DESC"]],
-  });
-
-  return history;
-};
-
-export const getHistoryByAssetService = async (assetId) => {
-  const history = await History.findAll({
-    where: { assetId },
-    include: [{ model: User, attributes: ["id", "name", "email"] }],
-    order: [["createdOn", "DESC"]],
-  });
-
-  return history;
-};

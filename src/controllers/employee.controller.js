@@ -1,7 +1,5 @@
 import {
   fetchRequest,
-  getHistoryByAssetService,
-  getHistoryByUserService,
   removeRequest,
   saveRequest,
 } from "../services/employee.service.js";
@@ -46,27 +44,6 @@ export const deleteRequest = async (req, res) => {
 
     const deleteRequest = await removeRequest(id);
     return successHandler(deleteRequest, res);
-  } catch (error) {
-    return errorHandler(error, 400, res);
-  }
-};
-
-export const getHistoryByUser = async (req, res) => {
-  try {
-    const { userId } = req.user.id;
-    const history = await getHistoryByUserService(userId);
-    return successHandler(history, res);
-  } catch (error) {
-    return errorHandler(error, 400, res);
-  }
-};
-
-export const getHistoryByAsset = async (req, res) => {
-  try {
-    const { assetId } = req.params;
-
-    const history = await getHistoryByAssetService(assetId);
-    return successHandler(history, res);
   } catch (error) {
     return errorHandler(error, 400, res);
   }

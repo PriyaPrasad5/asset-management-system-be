@@ -1,6 +1,7 @@
+import { Sequelize } from "sequelize";
 import db from "../models/relationshipManager.js";
 
-const { Asset } = db;
+const { Asset, Allocation, User, Request } = db;
 
 export const saveAsset = async (assetData) => {
   const { name, type, assetIdentifier, purchaseDate, warrantyEndDate } =
@@ -83,4 +84,40 @@ export const getAssetUtilizationReportService = async () => {
     console.error(error);
     throw new Error("Failed to generate asset utilization report.");
   }
+};
+
+export const fetchHistoryByUserService = async (userId) => {
+  const history = await Allocation.findAll({
+    where: { userId },
+    include: [
+      { model: Asset, attributes: ["id", "name", "type"] },
+      { model: User },
+    ],
+    order: [["createdOn", "DESC"]],
+  });
+
+  const requestCounts = await Request.findAll({
+    where: { userId },
+    attributes: [
+      "status",
+      [Sequelize.fn("COUNT", Sequelize.col("id")), "count"],
+    ],
+    group: ["status"],
+  });
+  return { history, requestCounts };
+};
+
+export const fetchHistoryByAssetService = async (assetId) => {
+  const history = await Allocation.findAll({
+    where: { assetId },
+    include: [{ model: User, attributes: ["id", "name", "email"] }],
+    order: [["createdOn", "DESC"]],
+  });
+
+  return history;
+};
+
+export const fetchUsers = async () => {
+  const users = await User.findAll();
+  return users;
 };

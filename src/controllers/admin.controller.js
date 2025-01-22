@@ -1,6 +1,9 @@
 import {
   fetchAssetById,
   fetchAssets,
+  fetchHistoryByAssetService,
+  fetchHistoryByUserService,
+  fetchUsers,
   getAssetUtilizationReportService,
   modifyAsset,
   removeAsset,
@@ -22,14 +25,15 @@ export const createAsset = async (req, res) => {
     if (error) {
       return errorHandler(new Error(message), 400, res);
     }
-    const { name, type, assetIdentifier, purchaseDate, warrantyEndDate } = req.body;
-    const asset = await saveAsset(
-      {name,
+    const { name, type, assetIdentifier, purchaseDate, warrantyEndDate } =
+      req.body;
+    const asset = await saveAsset({
+      name,
       type,
       assetIdentifier,
       purchaseDate,
-      warrantyEndDate}
-    );
+      warrantyEndDate,
+    });
     return successHandler(asset, res);
   } catch (error) {
     return errorHandler(error, 400, res);
@@ -101,6 +105,47 @@ export const deleteAsset = async (req, res) => {
 export const getAssetUtilizationReport = async (req, res) => {
   try {
     const result = await getAssetUtilizationReportService();
+    return successHandler(result, res);
+  } catch (error) {
+    return errorHandler(error, 400, res);
+  }
+};
+
+export const getUserReport = async (req, res) => {
+  try {
+    const result = await getAssetUtilizationReportService();
+    return successHandler(result, res);
+  } catch (error) {
+    return errorHandler(error, 400, res);
+  }
+};
+
+export const getHistoryByUserService = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    console.log("111", userId);
+    const result = await fetchHistoryByUserService(userId);
+    console.log("2222", result);
+    return successHandler(result, res);
+  } catch (error) {
+    return errorHandler(error, 400, res);
+  }
+};
+
+export const getHistoryByAssetService = async (req, res) => {
+  try {
+    const assetId = req.params.id;
+    const result = await fetchHistoryByAssetService(assetId);
+    return successHandler(result, res);
+  } catch (error) {
+    return errorHandler(error, 400, res);
+  }
+};
+
+export const getUsers = async (req, res) => {
+  try {
+    const assetId = req.params.id;
+    const result = await fetchUsers();
     return successHandler(result, res);
   } catch (error) {
     return errorHandler(error, 400, res);
