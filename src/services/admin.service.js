@@ -3,12 +3,13 @@ import db from "../models/relationshipManager.js";
 const { Asset } = db;
 
 export const saveAsset = async (assetData) => {
-  const { name, type, assetId, purchaseDate, warrantyEndDate } = assetData;
+  const { name, type, assetIdentifier, purchaseDate, warrantyEndDate } =
+    assetData;
   const asset = await Asset.create({
     name,
     type,
     status: "AVAILABLE",
-    assetId,
+    assetIdentifier,
     purchaseDate,
     warrantyEndDate,
     isActive: 1,
@@ -26,7 +27,12 @@ export const fetchAssetById = async (id) => {
   return asset;
 };
 
-export const modifyAsset = async (id, status, warrantyEndDate,nextServiceDate) => {
+export const modifyAsset = async (
+  id,
+  status,
+  warrantyEndDate,
+  nextServiceDate
+) => {
   const asset = await Asset.findByPk(id);
 
   if (!asset) {
@@ -48,20 +54,29 @@ export const removeAsset = async (id) => {
 
 export const getAssetUtilizationReportService = async () => {
   try {
-    const totalAssets = await Asset.count();
-    const assignedAssets = await Asset.count({ where: { status: "ASSIGNED" } });
+    const totalAssets = await Asset.count({ where: { isActive: 1 } });
+    const assignedAssets = await Asset.count({
+      where: { status: "ASSIGNED", isActive: 1 },
+    });
     const availableAssets = await Asset.count({
-      where: { status: "AVAILABLE" },
+      where: { status: "AVAILABLE", isActive: 1 },
     });
     const underMaintenanceAssets = await Asset.count({
-      where: { status: "UNDER_MAINTENANCE" },
+      where: { status: "UNDER_MAINTENANCE", isActive: 1 },
     });
 
     const report = {
       totalAssets,
-      assigned: (assignedAssets / totalAssets) * 100,
-      available: (availableAssets / totalAssets) * 100,
-      underMaintenance: (underMaintenanceAssets / totalAssets) * 100,
+      assignedPercentageValue: Math.round((assignedAssets / totalAssets) * 100),
+      availablePercentageValue: Math.round(
+        (availableAssets / totalAssets) * 100
+      ),
+      underMaintenancePercentageValue: Math.round(
+        (underMaintenanceAssets / totalAssets) * 100
+      ),
+      assignedAssets: assignedAssets,
+      availableAssets: availableAssets,
+      underMaintenanceAssets: underMaintenanceAssets,
     };
     return report;
   } catch (error) {

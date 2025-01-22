@@ -12,7 +12,8 @@ import swaggerDocument from "./src/swagger-docs/spec.json" assert { type: "json"
 dotenv.config();
 
 const app = express();
-app.use(cors({ origin: "http://localhost:5173" }));
+const corsOrigin = process.env.CORS_ORIGIN; 
+app.use(cors({ origin: corsOrigin }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
@@ -22,6 +23,6 @@ app.use("/api/admin", adminRoutes);
 app.use("/api/employee", employeeRoutes);
 app.use("/api/manager", managerRoutes);
 
-app.listen(process.env.PORT || 4000, () => {
+app.listen(process.env.PORT, () => {
   console.log(`Now listening on port ${process.env.PORT || 4000}`);
 });

@@ -1,5 +1,5 @@
-import db from "../models/relationshipManager.js";
 import { Op } from "sequelize";
+import db from "../models/relationshipManager.js";
 
 const { Request, Allocation, Asset, User } = db;
 
@@ -14,7 +14,7 @@ export const fetchRequest = async (id) => {
 };
 
 export const approveRaisedRequest = async (id, assetId, reason) => {
-  const request = await Request.findByPk(id, { include: [Asset, User] });
+  const request = await Request.findByPk(id, { include: [Asset] });
 
   if (!request) {
     throw new Error("Request Not Found");

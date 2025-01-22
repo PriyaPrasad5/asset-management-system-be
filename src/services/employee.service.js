@@ -9,7 +9,9 @@ export const saveRequest = async (userId, assetData) => {
 };
 
 export const fetchRequest = async (userId) => {
-  const request = await Request.findAll( { where: { isActive: 1,userId:userId } });
+  const request = await Request.findAll({
+    where: { isDeleted: 0, userId: userId },
+  });
   return request;
 };
 
@@ -24,7 +26,7 @@ export const removeRequest = async (id) => {
   if (request.status === "REJECTED") {
     throw new Error("Rejected Request cant be deleted");
   }
-  await request.update({ isActive: 0 });
+  await request.update({ isActive: 0, isDeleted: 1 });
   return request;
 };
 

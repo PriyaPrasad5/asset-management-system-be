@@ -22,11 +22,11 @@ export const createAsset = async (req, res) => {
     if (error) {
       return errorHandler(new Error(message), 400, res);
     }
-    const { name, type, assetId, purchaseDate, warrantyEndDate } = req.body;
+    const { name, type, assetIdentifier, purchaseDate, warrantyEndDate } = req.body;
     const asset = await saveAsset(
       {name,
       type,
-      assetId,
+      assetIdentifier,
       purchaseDate,
       warrantyEndDate}
     );

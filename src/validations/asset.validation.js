@@ -4,7 +4,7 @@ import Joi from "joi";
 export const CreateAssetValidationObj = Joi.object({
   name: Joi.string().required(),
   type: Joi.string().required(),
-  assetId: Joi.string().required(),
+  assetIdentifier: Joi.string().required(),
   purchaseDate: Joi.date()
     .custom((date, helper) => {
       if (!dayjs(date.original, undefined, true).isValid()) {

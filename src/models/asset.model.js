@@ -7,7 +7,7 @@ const defineAssetModel = (sequelize, DataTypes) => {
         primaryKey: true,
         autoIncrement: true,
       },
-      assetId: {
+      assetIdentifier: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
