@@ -14,11 +14,11 @@ const defineAssetModel = (sequelize, DataTypes) => {
       },
       name: {
         type: DataTypes.STRING,
-        allowNull: false, //laptop,pc,phone
+        allowNull: false,
       },
       type: {
         type: DataTypes.STRING,
-        allowNull: false, //windows,ios
+        allowNull: false,
       },
       status: {
         type: DataTypes.ENUM("AVAILABLE", "ASSIGNED", "UNDER_MAINTENANCE"),

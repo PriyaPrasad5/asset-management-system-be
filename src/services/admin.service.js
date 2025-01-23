@@ -49,6 +49,9 @@ export const removeAsset = async (id) => {
   if (!asset) {
     throw new Error("Asset Not Found");
   }
+  if (asset.status === "ASSIGNED") {
+    throw new Error("Cannot delete an assigned asset.");
+  }
   await asset.update({ isActive: 0 });
   return asset;
 };

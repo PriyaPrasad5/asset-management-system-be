@@ -1,12 +1,29 @@
 import bcrypt from "bcrypt";
 import db from "../models/relationshipManager.js";
 import { generateToken } from "../utils/auth.js";
+import { Op } from "sequelize";
 
 const { User } = db;
 
 // Register a new user
 export const registerUser = async (userData) => {
   const { name, email, password, employeeId } = userData;
+
+   // Check if email or employeeId already exists
+   const existingUser = await User.findOne({
+    where: {
+      [Op.or]: [
+        { email },
+        { employeeId },
+      ],
+    },
+  });
+
+  if (existingUser) {
+    const conflictField = existingUser.email === email ? 'email' : 'employee ID';
+    throw new Error(`A user with this ${conflictField} already exists.`);
+  }
+
   const hashedPassword = await bcrypt.hash(password, 10);
   const user = await User.create({
     name,
