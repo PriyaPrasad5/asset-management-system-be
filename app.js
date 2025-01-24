@@ -1,7 +1,7 @@
-import bodyParser from "body-parser";
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
+import helmet from "helmet";
 import swaggerUi from "swagger-ui-express";
 import adminRoutes from "./src/routes/admin.routes.js";
 import authRoutes from "./src/routes/auth.routes.js";
@@ -12,10 +12,18 @@ import swaggerDocument from "./src/swagger-docs/spec.json" assert { type: "json"
 dotenv.config();
 
 const app = express();
-const corsOrigin = process.env.CORS_ORIGIN; 
+
+app.use(helmet());
+
+const corsOrigin = process.env.CORS_ORIGIN;
 app.use(cors({ origin: corsOrigin }));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use("/api/auth", authRoutes);
